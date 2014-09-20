@@ -19,6 +19,7 @@ object Twitter2Hdfs {
     val conf = new SparkConf().setAppName("Twitter2Hdfs")
     val ssc = new StreamingContext(conf, Minutes(1))
     val zookeeperConnect = args.headOption.getOrElse("localhost:2181")
+    val hdfsPrefix = args.tail.headOption.getOrElse("hdfs:/tmp/twitter")
     val stream =
       KafkaUtils
         .createStream(ssc, zookeeperConnect, "cons4", Map("twitter-sample" -> 4))
@@ -40,7 +41,7 @@ object Twitter2Hdfs {
 
     AvroParquetOutputFormat.setSchema(job, hack.Tweet.SCHEMA$)
 
-    pairDStream.saveAsNewAPIHadoopFiles("hdfs://10.140.108.171:9000/tmp/twitter", "sample", classOf[Void], classOf[String],
+    pairDStream.saveAsNewAPIHadoopFiles(hdfsPrefix, "sample", classOf[Void], classOf[String],
       classOf[ParquetOutputFormat[Tweet]], job.getConfiguration)
 
     ssc.start()
