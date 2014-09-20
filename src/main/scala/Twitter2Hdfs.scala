@@ -40,7 +40,7 @@ object Twitter2Hdfs {
 
     AvroParquetOutputFormat.setSchema(job, hack.Tweet.SCHEMA$)
 
-    pairDStream.saveAsNewAPIHadoopFiles("hdfs:///tmp", "str", classOf[Void], classOf[String],
+    pairDStream.saveAsNewAPIHadoopFiles("hdfs://10.140.108.171:9000/tmp/twitter", "sample", classOf[Void], classOf[String],
       classOf[ParquetOutputFormat[Tweet]], job.getConfiguration)
 
     ssc.start()
