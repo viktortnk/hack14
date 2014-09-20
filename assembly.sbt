@@ -10,6 +10,7 @@ mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
   case PathList(ps @ _*) if ps.last endsWith "pom.properties" => MergeStrategy.concat
   case PathList(ps @ _*) if ps.last endsWith "pom.xml" => MergeStrategy.first
   case PathList(ps @ _*) if ps.last endsWith ".class" => MergeStrategy.first
+  case PathList(ps @ _*) if ps.last endsWith "mimetypes.default" => MergeStrategy.first
   case x => old(x)
 }
 }
