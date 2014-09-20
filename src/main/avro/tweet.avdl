@@ -1,0 +1,8 @@
+@namespace("hack")
+protocol SparkParquetAvro {
+
+record Tweet {
+  string user;
+}
+
+}
