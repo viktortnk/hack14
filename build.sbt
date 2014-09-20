@@ -8,7 +8,7 @@ mainClass := Some("TwitterApp")
 
 fork := true
 
-javaOptions in run += "-Dspark.master=local"
+javaOptions in run += "-Dspark.master=local[2]"
 
 libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-core" % "1.1.0" % "provided",
