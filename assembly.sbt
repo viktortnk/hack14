@@ -13,5 +13,3 @@ mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
   case x => old(x)
 }
 }
-
-seq( sbtavro.SbtAvro.avroSettings : _*)

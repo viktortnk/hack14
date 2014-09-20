@@ -12,21 +12,21 @@ javaOptions in run += "-Dspark.master=local[2]"
 
 libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-core" % "1.1.0" % "provided",
-  "com.twitter" % "parquet-avro" % "1.6.0rc2"
+  "org.apache.hadoop" % "hadoop-client" % "2.3.0" exclude("org.mortbay.jetty", "servlet-api")
     exclude("commons-beanutils", "commons-beanutils-core")
-    exclude("commons-collections", "commons-collections")
     exclude("commons-logging", "commons-logging")
-    exclude("commons-collections", "commons-collections"),
+    exclude("javax.servlet", "servlet-api")
+    exclude("com.esotericsoftware.minlog", "minlog"),
   "org.apache.spark" %% "spark-streaming-twitter" % "1.1.0"  exclude("org.mortbay.jetty", "servlet-api")
     exclude("commons-beanutils", "commons-beanutils-core")
-    exclude("commons-collections", "commons-collections")
     exclude("commons-logging", "commons-logging")
+    exclude("org.apache.hadoop", "hadoop-client")
     exclude("commons-collections", "commons-collections")
     exclude("com.esotericsoftware.minlog", "minlog"),
   "org.apache.spark" %% "spark-streaming-kafka" % "1.1.0"  exclude("org.mortbay.jetty", "servlet-api")
     exclude("commons-beanutils", "commons-beanutils-core")
-    exclude("commons-collections", "commons-collections")
     exclude("commons-logging", "commons-logging")
+    exclude("org.apache.hadoop", "hadoop-client")
     exclude("commons-collections", "commons-collections")
     exclude("com.esotericsoftware.minlog", "minlog")
 )
