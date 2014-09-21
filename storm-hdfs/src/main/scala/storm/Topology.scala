@@ -15,9 +15,9 @@ object Topology {
     val conf = new Config
     conf.setNumWorkers(1)
 
-    val syncPolicy = new CountSyncPolicy(1000)
+    val syncPolicy = new CountSyncPolicy(20000)
 
-    val rotationPolicy = new TimedRotationPolicy(1.0f, TimedRotationPolicy.TimeUnit.MINUTES)
+    val rotationPolicy = new TimedRotationPolicy(5.0f, TimedRotationPolicy.TimeUnit.MINUTES)
 
     val spoutConf = {
       val zkHosts = new ZkHosts("130.211.97.93:2181")
@@ -47,7 +47,7 @@ object Topology {
 
     val builder = new TopologyBuilder()
 
-    builder.setSpout("twitter-spout", spout, 1)
+    builder.setSpout("twitter-spout", spout, 4)
 
     builder.setBolt("twitter-processor", bolt, 4).shuffleGrouping("twitter-spout")
 
