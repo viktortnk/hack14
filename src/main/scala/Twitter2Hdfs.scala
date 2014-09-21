@@ -12,7 +12,7 @@ object Twitter2Hdfs {
 
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setAppName("Twitter2Hdfs")
-    val ssc = new StreamingContext(conf, Minutes(1))
+    val ssc = new StreamingContext(conf, Minutes(5))
     val zookeeperConnect = args.headOption.getOrElse("localhost:2181")
     val hdfsPrefix = args.drop(1).headOption.getOrElse("hdfs://10.140.108.171/tmp/twitter")
     val stream =
