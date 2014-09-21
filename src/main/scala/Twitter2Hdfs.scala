@@ -12,21 +12,23 @@ object Twitter2Hdfs {
 
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setAppName("Twitter2Hdfs")
-    val ssc = new StreamingContext(conf, Minutes(1))
+    val ssc = new StreamingContext(conf, Seconds(10))
     val zookeeperConnect = args.headOption.getOrElse("localhost:2181")
-    val hdfsPrefix = args.drop(1).headOption.getOrElse("hdfs://10.140.108.171/tmp/twitter")
+    val hdfsPrefix = args.drop(1).headOption.getOrElse("hdfs://10.140.108.171/tmp/twttr")
     val stream =
       KafkaUtils
         .createStream(ssc, zookeeperConnect, "cons4", Map("twitter-sample" -> 4))
 
-    val pairDStream  = new JavaPairDStream(stream)
+    stream.saveAsTextFiles(hdfsPrefix)
 
-    val tempDir = Files.createTempDir()
-    val outputDir = new File(tempDir, "output").getAbsolutePath
-    println(outputDir)
-
-    pairDStream.saveAsNewAPIHadoopFiles(hdfsPrefix, "txt", classOf[Void], classOf[Text],
-      classOf[TextOutputFormat[_, _]])
+//    val pairDStream  = new JavaPairDStream(stream)
+//
+//    val tempDir = Files.createTempDir()
+//    val outputDir = new File(tempDir, "output").getAbsolutePath
+//    println(outputDir)
+//
+//    pairDStream.saveAsNewAPIHadoopFiles(hdfsPrefix, "txt", classOf[Void], classOf[Text],
+//      classOf[TextOutputFormat[_, _]])
 
     ssc.start()
     ssc.awaitTermination()
