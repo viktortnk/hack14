@@ -19,6 +19,8 @@ version := "1.0"
 
 resolvers += "Whisk Snapshots" at "http://whisklabs.github.io/mvn-repo/snapshots/"
 
+resolvers += "clojars" at "http://clojars.org/repo"
+
 libraryDependencies ++= Seq(
   "org.apache.storm" % "storm-core" % "0.9.3-incubating-SNAPSHOT" % "provided",
   "org.apache.storm" % "storm-kafka" % "0.9.3-incubating-SNAPSHOT",
